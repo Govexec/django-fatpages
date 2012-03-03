@@ -14,6 +14,8 @@ class FatPage(models.Model):
 
 	registration_required = models.BooleanField(_('registration required'), help_text=_("If this is checked, only logged-in users will be able to view the page."))
 
+	custom_dart_zone = models.CharField(max_length=25, null=True, blank=True)
+
 	class Meta:
 		db_table = 'django_flatpage'
 		verbose_name = _('static page')

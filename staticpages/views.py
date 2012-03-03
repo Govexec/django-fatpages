@@ -12,6 +12,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.core.xheaders import populate_xheaders
 from django.utils.safestring import mark_safe
 from django.views.decorators.csrf import csrf_protect
+from content_utils.utils import combine_root_url_and_path
+from govexec.models import Page
 
 
 if hasattr(settings, 'FATPAGES_DEFAULT_TEMPLATE'):
@@ -66,8 +68,25 @@ def render_fatpage(request, f):
     f.title = mark_safe(f.title)
     f.content = mark_safe(f.content)
 
+    ad_settings = settings.DART_AD_DEFAULTS.copy()
+    """ if the page has a custom dart zone, set the page dart zone to the custom dart zone """
+
+    if f.custom_dart_zone:
+        ad_settings['zone'] = f.custom_dart_zone
+
+    page = Page({
+        "type": "static",
+        "category": None,
+        "title": f.title,
+        "section": None,
+        "preview": False,
+        "description": f.excerpt,
+        "url": combine_root_url_and_path(settings.SITE_URL, f.get_absolute_url()),
+        }, request=request, ad_settings=ad_settings)
+
     c = RequestContext(request, {
         'fatpage': f,
+        'page': page,
     })
     response = HttpResponse(t.render(c))
     populate_xheaders(request, response, FatPage, f.id)

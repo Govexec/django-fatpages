@@ -14,7 +14,8 @@ from django.utils.safestring import mark_safe
 from django.views.decorators.csrf import csrf_protect
 from content_utils.utils import combine_root_url_and_path
 from govexec.models import Page
-
+from cachecow.pagecache import cache_page
+from django.views.decorators.cache import cache_control
 
 if hasattr(settings, 'FATPAGES_DEFAULT_TEMPLATE'):
 	DEFAULT_TEMPLATE = settings.FATPAGES_DEFAULT_TEMPLATE
@@ -48,6 +49,8 @@ def fatpage(request, url):
     return render_fatpage(request, f)
 
 @csrf_protect
+@cache_page
+@cache_control(must_revalidate=True, max_age=1800)
 def render_fatpage(request, f):
     """
     Internal interface to the fat page view.

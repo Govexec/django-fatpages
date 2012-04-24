@@ -17,6 +17,7 @@ from govexec.models import Page
 from cachecow.pagecache import cache_page
 from django.views.decorators.cache import cache_control
 
+
 if hasattr(settings, 'FATPAGES_DEFAULT_TEMPLATE'):
 	DEFAULT_TEMPLATE = settings.FATPAGES_DEFAULT_TEMPLATE
 else:

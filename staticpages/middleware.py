@@ -28,8 +28,6 @@ class FatpageFallbackMiddleware(object):
         if response.status_code != 404:
             return response # No need to check for a fatpage for non-404 responses.
         try:
-            if settings.SITE_NAME == "Nextgov":
-                request.path_info = "nextgov" + request.path_info
             return fatpage(request, request.path_info)
         # Return the original response if any errors happened. Because this
         # is a middleware, we can't assume the errors will be caught elsewhere.

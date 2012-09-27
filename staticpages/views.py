@@ -46,7 +46,7 @@ def fatpage(request, url):
         return HttpResponseRedirect("%s/" % request.path)
     if not url.startswith('/'):
         url = "/" + url
-    f = get_object_or_404(FatPage, url__exact=url)
+    f = get_object_or_404(FatPage, url__exact=url, site=settings.SITE_ID)
     return render_fatpage(request, f)
 
 @csrf_protect

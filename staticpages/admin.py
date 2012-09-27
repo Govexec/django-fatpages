@@ -18,9 +18,10 @@ class FatpageForm(forms.ModelForm):
 class FatPageAdmin(admin.ModelAdmin):
     form = FatpageForm
     fieldsets = (
-        (None, {'fields': ('url', 'title', 'content', 'enable_comments', 'excerpt', 'template_name', 'custom_dart_zone',)}),
+        (None, {'fields': ('site', 'url', 'title', 'content', 'enable_comments', 'excerpt', 'template_name', 'custom_dart_zone',)}),
     )
-    list_display = ('title', 'url')
+    ordering = ['site']
+    list_display = ('__unicode__', 'url')
     search_fields = ('title', 'url')
 
 admin.site.register(FatPage, FatPageAdmin)

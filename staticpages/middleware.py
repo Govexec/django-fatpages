@@ -18,6 +18,8 @@ def page_404(request):
 
     if settings.SITE_NAME == "Nextgov":
         return render_to_response("nextgov/content/main/404.html", view_vars, context_instance=RequestContext(request))
+    elif settings.SITE_NAME == "Defense One":
+        return render_to_response("defenseone/content/main/404.html", view_vars, context_instance=RequestContext(request))
     else:
         return render_to_response("content/main/404.html", view_vars, context_instance=RequestContext(request))
 

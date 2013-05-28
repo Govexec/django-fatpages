@@ -1,7 +1,7 @@
 from staticpages.views import fatpage
-from django.http import Http404
+from django.http import Http404, HttpResponseNotFound
 from django.conf import settings
-from coffin.shortcuts import render_to_response
+from coffin.shortcuts import render_to_string
 from govexec.models import Page
 from coffin.template import RequestContext
 
@@ -17,11 +17,12 @@ def page_404(request):
     }
 
     if settings.SITE_NAME == "Nextgov":
-        return render_to_response("nextgov/content/main/404.html", view_vars, context_instance=RequestContext(request))
+        return HttpResponseNotFound(render_to_string("nextgov/content/main/404.html", view_vars, context_instance=RequestContext(request)))
     elif settings.SITE_NAME == "Defense One":
+        return HttpResponseNotFound(render_to_string("defenseone/content/main/404.html", view_vars, context_instance=RequestContext(request)))
         return render_to_response("defenseone/content/main/404.html", view_vars, context_instance=RequestContext(request))
     else:
-        return render_to_response("content/main/404.html", view_vars, context_instance=RequestContext(request))
+        return HttpResponseNotFound(render_to_string("content/main/404.html", view_vars, context_instance=RequestContext(request)))
 
 
 class FatpageFallbackMiddleware(object):

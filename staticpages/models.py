@@ -5,7 +5,7 @@ from ckeditor.fields import RichTextField
 from django.conf import settings
 
 class FatPage(models.Model):
-	site = models.ForeignKey(Site)
+	site = models.ForeignKey(Site, default=1)
 	url = models.CharField(_('URL'), max_length=100, db_index=True)
 	title = models.CharField(_('title'), max_length=200)
 	content = RichTextField(null=True, blank=True)

@@ -51,7 +51,7 @@ def fatpage(request, url):
 
 @csrf_protect
 @cache_page
-@cache_control(must_revalidate=True, max_age=1800)
+@cache_control(max_age=1800)
 def render_fatpage(request, f):
     """
     Internal interface to the fat page view.

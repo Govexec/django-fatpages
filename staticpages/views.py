@@ -72,11 +72,11 @@ def render_fatpage(request, f):
     f.title = mark_safe(f.title)
     f.content = mark_safe(f.content)
 
-    ad_settings = settings.DART_AD_DEFAULTS.copy()
+    ad_zone = ""
     """ if the page has a custom dart zone, set the page dart zone to the custom dart zone """
 
     if f.custom_dart_zone:
-        ad_settings['zone'] = f.custom_dart_zone
+        ad_zone = f.custom_dart_zone
 
     page = Page({
         "type": "static",
@@ -86,7 +86,7 @@ def render_fatpage(request, f):
         "preview": False,
         "description": f.excerpt,
         "url": combine_root_url_and_path(settings.SITE_URL, f.get_absolute_url()),
-        }, request=request, ad_settings=ad_settings)
+        }, request=request, ad_zone=ad_zone)
 
     c = RequestContext(request, {
         'fatpage': f,

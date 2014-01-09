@@ -2,6 +2,7 @@ from django import forms
 from django.contrib import admin
 from staticpages.models import FatPage
 from django.utils.translation import ugettext_lazy as _
+from django.conf import settings
 
 
 class FatpageForm(forms.ModelForm):
@@ -23,5 +24,10 @@ class FatPageAdmin(admin.ModelAdmin):
     ordering = ['site']
     list_display = ('__unicode__', 'url')
     search_fields = ('title', 'url')
+    class Media:
+        js = (
+            '/static/js/jquery-1.8.1.min.js',
+            settings.NON_CDN_STATIC_URL + 'js/responsive_embed.js',
+        )
 
 admin.site.register(FatPage, FatPageAdmin)

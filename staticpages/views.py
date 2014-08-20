@@ -87,6 +87,7 @@ def render_fatpage(request, f):
         "description": f.excerpt,
         "url": combine_root_url_and_path(settings.SITE_URL, f.get_absolute_url()),
         }, request=request, ad_zone=ad_zone)
+    page.sailthru.update_from_static(f)
 
     c = RequestContext(request, {
         'fatpage': f,

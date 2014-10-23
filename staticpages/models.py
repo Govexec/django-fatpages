@@ -4,7 +4,9 @@ from django.utils.translation import ugettext_lazy as _
 from ckeditor.fields import RichTextField
 from django.conf import settings
 
-class FatPage(models.Model):
+from sailthru_wrapper.models.mixins import SailthruModelMixin
+
+class FatPage(models.Model, SailthruModelMixin):
     site = models.ForeignKey(Site, default=1)
     url = models.CharField(_('URL'), max_length=100, db_index=True)
     title = models.CharField(_('title'), max_length=200)
@@ -29,3 +31,21 @@ class FatPage(models.Model):
 
     def get_absolute_url(self):
         return self.url
+
+    def get_full_absolute_url(self):
+        return 'http://' + self.site.domain + self.url
+
+    def is_published(self):
+        return True
+
+    def update_sailthru_change_data(self):
+        data = super(FatPage, self).update_sailthru_change_data()
+        data.update({
+            'update-from': 'update_from_static',
+        })
+        return data
+
+    def save(self, *args, **kwargs):
+        self.update_sailthru_handle_delete_outdated()
+        super(FatPage, self).save(*args, **kwargs)
+        self.update_sailthru_handle_change()

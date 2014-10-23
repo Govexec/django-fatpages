@@ -5,28 +5,27 @@ from ckeditor.fields import RichTextField
 from django.conf import settings
 
 class FatPage(models.Model):
-	site = models.ForeignKey(Site, default=1)
-	url = models.CharField(_('URL'), max_length=100, db_index=True)
-	title = models.CharField(_('title'), max_length=200)
-	content = RichTextField(null=True, blank=True)
-	excerpt = RichTextField(null=True, blank=True)
-	enable_comments = models.BooleanField(_('enable comments'))
-	template_name = models.CharField(_('template name'), max_length=70, blank=True,
-									 help_text=_("Example: 'staticpages/contact_page.html'. If this isn't provided, the system will use 'the default."))
+    site = models.ForeignKey(Site, default=1)
+    url = models.CharField(_('URL'), max_length=100, db_index=True)
+    title = models.CharField(_('title'), max_length=200)
+    content = RichTextField(null=True, blank=True)
+    excerpt = RichTextField(null=True, blank=True)
+    enable_comments = models.BooleanField(_('enable comments'))
+    template_name = models.CharField(_('template name'), max_length=70, blank=True,
+                                     help_text=_("Example: 'staticpages/contact_page.html'. If this isn't provided, the system will use 'the default."))
 
-	registration_required = models.BooleanField(_('registration required'), help_text=_("If this is checked, only logged-in users will be able to view the page."))
+    registration_required = models.BooleanField(_('registration required'), help_text=_("If this is checked, only logged-in users will be able to view the page."))
 
-	custom_dart_zone = models.CharField(max_length=25, null=True, blank=True)
+    custom_dart_zone = models.CharField(max_length=25, null=True, blank=True)
 
-	class Meta:
-		db_table = 'django_flatpage'
-		verbose_name = _('static page')
-		verbose_name_plural = _('static pages')
-		ordering = ('url',)
+    class Meta:
+        db_table = 'django_flatpage'
+        verbose_name = _('static page')
+        verbose_name_plural = _('static pages')
+        ordering = ('url',)
 
-	def __unicode__(self):
-		return u"%s -- %s" % (self.site.name, self.title)
+    def __unicode__(self):
+        return u"%s -- %s" % (self.site.name, self.title)
 
-	def get_absolute_url(self):
-		return self.url
-			
+    def get_absolute_url(self):
+        return self.url

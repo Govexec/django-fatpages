@@ -38,7 +38,7 @@ class FatPage(models.Model, SailthruModelMixin):
     def is_published(self):
         return True
 
-    def update_sailthru_change_data(self):
+    def sailthru_data(self):
         data = super(FatPage, self).update_sailthru_change_data()
         data.update({
             'update-from': 'update_from_static',

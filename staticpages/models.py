@@ -15,7 +15,7 @@ class FatPage(models.Model, SailthruContentModelMixin):
     enable_comments = models.BooleanField(_('enable comments'))
     template_name = models.CharField(_('template name'), max_length=70, blank=True,
                                      help_text=_("Example: 'staticpages/contact_page.html'. If this isn't provided, the system will use 'the default."))
-
+    suppress_welcome_ad = models.BooleanField()
     registration_required = models.BooleanField(_('registration required'), help_text=_("If this is checked, only logged-in users will be able to view the page."))
 
     custom_dart_zone = models.CharField(max_length=25, null=True, blank=True)

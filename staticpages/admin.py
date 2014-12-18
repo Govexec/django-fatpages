@@ -19,11 +19,12 @@ class FatpageForm(forms.ModelForm):
 class FatPageAdmin(admin.ModelAdmin):
     form = FatpageForm
     fieldsets = (
-        (None, {'fields': ('site', 'url', 'title', 'content', 'enable_comments', 'excerpt', 'template_name', 'custom_dart_zone',)}),
+        (None, {'fields': ('site', 'url', 'title', 'content', 'enable_comments', 'excerpt', 'template_name', 'custom_dart_zone', 'suppress_welcome_ad',)}),
     )
     ordering = ['site']
     list_display = ('__unicode__', 'url')
     search_fields = ('title', 'url')
+
     class Media:
         js = (
             '/static/js/jquery-1.8.1.min.js',

@@ -13,7 +13,7 @@ from django.core.xheaders import populate_xheaders
 from django.utils.safestring import mark_safe
 from django.views.decorators.csrf import csrf_protect
 from content_utils.utils import combine_root_url_and_path
-from govexec.models import Page
+from websites.models import Page
 from cachecow.pagecache import cache_page
 from django.views.decorators.cache import cache_control
 

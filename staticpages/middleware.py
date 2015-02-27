@@ -2,7 +2,7 @@ from staticpages.views import fatpage
 from django.http import Http404, HttpResponseNotFound
 from django.conf import settings
 from coffin.shortcuts import render_to_string
-from govexec.models import Page
+from websites.models import Page
 from coffin.template import RequestContext
 
 

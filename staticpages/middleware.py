@@ -1,10 +1,12 @@
-from staticpages.views import fatpage
-from django.http import Http404, HttpResponseNotFound
 from django.conf import settings
+from django.http import Http404, HttpResponseNotFound
+
 from coffin.shortcuts import render_to_string
-from websites.models import Page
 from coffin.template import RequestContext
 
+from staticpages.views import fatpage
+from websites.models import Page
+from websites.route_fifty.views import NotFoundView as RFNotFoundView
 
 
 def page_404(request):
@@ -20,7 +22,8 @@ def page_404(request):
         return HttpResponseNotFound(render_to_string("nextgov/content/main/404.html", view_vars, context_instance=RequestContext(request)))
     elif settings.SITE_NAME == "Defense One":
         return HttpResponseNotFound(render_to_string("defenseone/content/main/404.html", view_vars, context_instance=RequestContext(request)))
-        return render_to_response("defenseone/content/main/404.html", view_vars, context_instance=RequestContext(request))
+    elif settings.SITE_NAME == "Route Fifty":
+        return RFNotFoundView.as_view()(request)
     else:
         return HttpResponseNotFound(render_to_string("content/main/404.html", view_vars, context_instance=RequestContext(request)))
 

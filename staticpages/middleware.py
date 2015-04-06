@@ -23,7 +23,7 @@ def page_404(request):
     elif settings.SITE_NAME == "Defense One":
         return HttpResponseNotFound(render_to_string("defenseone/content/main/404.html", view_vars, context_instance=RequestContext(request)))
     elif settings.SITE_NAME == "Route Fifty":
-        return RFNotFoundView.as_view()(request)
+        return HttpResponseNotFound(render_to_string("route_fifty/404.html", view_vars, context_instance=RequestContext(request)))
     else:
         return HttpResponseNotFound(render_to_string("content/main/404.html", view_vars, context_instance=RequestContext(request)))
 

@@ -14,6 +14,10 @@ class FatpageForm(forms.ModelForm):
 
     class Meta:
         model = FatPage
+        fields = (
+            'site', 'url', 'title', 'content', 'enable_comments', 'excerpt',
+            'template_name', 'custom_dart_zone', 'suppress_welcome_ad',
+        )
 
 
 class FatPageAdmin(admin.ModelAdmin):

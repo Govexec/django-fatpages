@@ -12,11 +12,19 @@ class FatPage(models.Model, SailthruContentModelMixin):
     title = models.CharField(_('title'), max_length=200)
     content = RichTextField(null=True, blank=True)
     excerpt = RichTextField(null=True, blank=True)
-    enable_comments = models.BooleanField(_('enable comments'))
-    template_name = models.CharField(_('template name'), max_length=70, blank=True,
-                                     help_text=_("Example: 'staticpages/contact_page.html'. If this isn't provided, the system will use 'the default."))
-    suppress_welcome_ad = models.BooleanField()
-    registration_required = models.BooleanField(_('registration required'), help_text=_("If this is checked, only logged-in users will be able to view the page."))
+    enable_comments = models.BooleanField(_('enable comments'), default=False)
+
+    template_name = models.CharField(
+        _('template name'), default=False, max_length=70, blank=True,
+        help_text=_("Example: 'staticpages/contact_page.html'. If this isn't provided, the system will use 'the default.")
+    )
+
+    suppress_welcome_ad = models.BooleanField(default=False)
+
+    registration_required = models.BooleanField(
+        _('registration required'), default=False,
+        help_text=_("If this is checked, only logged-in users will be able to view the page.")
+    )
 
     custom_dart_zone = models.CharField(max_length=25, null=True, blank=True)
 

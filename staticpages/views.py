@@ -14,7 +14,7 @@ from django.utils.safestring import mark_safe
 from django.views.decorators.csrf import csrf_protect
 from content_utils.utils import combine_root_url_and_path
 from websites.models import Page
-from cachecow.pagecache import cache_page
+from cachew.decorators import cache_page_function as cache_page
 from django.views.decorators.cache import cache_control
 
 
@@ -50,7 +50,7 @@ def fatpage(request, url):
     return render_fatpage(request, f)
 
 @csrf_protect
-@cache_page
+@cache_page(1800)
 @cache_control(max_age=1800)
 def render_fatpage(request, f):
     """

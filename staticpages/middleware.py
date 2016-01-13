@@ -13,9 +13,13 @@ def page_404(request):
 
     view_vars = {
         "page":  Page({
-        "category": None,
-        "title": '404',
-        }, request, ad_settings=settings.DART_AD_DEFAULTS)
+            "category": None,
+            "title": '404',
+            }, request
+        ),
+        "gpt": {
+            "ad_unit": "/".join(map(str, ["", settings.GPT_NETWORK_CODE, settings.GPT_BASE_AD_UNIT_PATH])),
+        },
     }
 
     if settings.SITE_NAME == "Nextgov":

@@ -15,8 +15,12 @@ def page_404(request):
         "page":  Page({
         "category": None,
         "title": '404',
-        }, request, ad_settings=settings.DART_AD_DEFAULTS)
+        }, request, ad_settings=settings.DART_AD_DEFAULTS),
+        'gpt': {
+            'ad_unit': '/{}/{}'.format(settings.GPT_NETWORK_CODE, settings.GPT_BASE_AD_UNIT_PATH),
+        }
     }
+
 
     if settings.SITE_NAME == "Nextgov":
         return HttpResponseNotFound(render_to_string("nextgov/content/main/404.html", view_vars, context_instance=RequestContext(request)))

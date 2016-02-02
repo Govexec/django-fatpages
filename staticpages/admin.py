@@ -28,7 +28,7 @@ class FatPageAdmin(admin.ModelAdmin):
                 'enable_comments',
                 'excerpt',
                 'template_name',
-                'custom_dart_zone',
+                'custom_ad_unit',
                 'suppress_welcome_ad',
             )
         }),

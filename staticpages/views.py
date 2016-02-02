@@ -88,17 +88,20 @@ def render_fatpage(request, f):
         'page': page,
     }
 
-    custom_ad_unit = (f.custom_dart_zone or "about").strip()
+    ad_unit = "/{}/{}".format(settings.GPT_NETWORK_CODE, settings.GPT_BASE_AD_UNIT_PATH)
+    try:
+        custom_ad_unit = f.custom_ad_unit.strip()
+        if custom_ad_unit:
+            if custom_ad_unit.startswith("/"):
+                ad_unit += custom_ad_unit
+            else:
+                ad_unit += "/" + custom_ad_unit
+    except:
+        pass
 
-    if f.get_absolute_url().startswith("/" + custom_ad_unit):
-        ad_unit = '/{network_code}/{root_ad_unit}/{custom_ad_unit}'.format(
-            network_code=settings.GPT_NETWORK_CODE,
-            root_ad_unit=settings.GPT_BASE_AD_UNIT_PATH,
-            custom_ad_unit=custom_ad_unit
-        )
-        view_vars['gpt'] = {
-            'ad_unit': ad_unit,
-        }
+    view_vars['gpt'] = {
+        'ad_unit': ad_unit,
+    }
 
     c = RequestContext(request, view_vars)
     x = t.render(c)

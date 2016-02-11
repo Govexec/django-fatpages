@@ -26,7 +26,7 @@ class FatPage(models.Model, SailthruContentModelMixin):
         help_text=_("If this is checked, only logged-in users will be able to view the page.")
     )
 
-    custom_dart_zone = models.CharField(max_length=25, null=True, blank=True)
+    custom_ad_unit = models.CharField(max_length=25, null=True, blank=True)
 
     class Meta:
         db_table = 'django_flatpage'

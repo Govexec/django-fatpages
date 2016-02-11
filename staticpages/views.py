@@ -72,12 +72,6 @@ def render_fatpage(request, f):
     f.title = mark_safe(f.title)
     f.content = mark_safe(f.content)
 
-    ad_zone = ""
-    """ if the page has a custom dart zone, set the page dart zone to the custom dart zone """
-
-    if f.custom_dart_zone:
-        ad_zone = f.custom_dart_zone
-
     page = Page({
         "type": "static",
         "category": None,
@@ -86,13 +80,32 @@ def render_fatpage(request, f):
         "preview": False,
         "description": f.excerpt,
         "url": combine_root_url_and_path(settings.SITE_URL, f.get_absolute_url()),
-        }, request=request, ad_zone=ad_zone)
+        }, request=request)
     page.sailthru.update_from_static(f)
 
-    c = RequestContext(request, {
+    view_vars = {
         'fatpage': f,
         'page': page,
-    })
+    }
+
+    ad_unit = "/{}/{}".format(settings.GPT_NETWORK_CODE, settings.GPT_BASE_AD_UNIT_PATH)
+    try:
+        custom_ad_unit = f.custom_ad_unit.strip()
+        if custom_ad_unit:
+            if custom_ad_unit.startswith("/"):
+                ad_unit += custom_ad_unit
+            else:
+                ad_unit += "/" + custom_ad_unit
+    except:
+        pass
+
+    view_vars['gpt'] = {
+        'ad_unit': ad_unit,
+    }
+
+    c = RequestContext(request, view_vars)
+    x = t.render(c)
+
     response = HttpResponse(t.render(c))
     populate_xheaders(request, response, FatPage, f.id)
     return response

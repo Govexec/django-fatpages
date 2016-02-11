@@ -19,7 +19,19 @@ class FatpageForm(forms.ModelForm):
 class FatPageAdmin(admin.ModelAdmin):
     form = FatpageForm
     fieldsets = (
-        (None, {'fields': ('site', 'url', 'title', 'content', 'enable_comments', 'excerpt', 'template_name', 'custom_dart_zone', 'suppress_welcome_ad',)}),
+        (None, {
+            'fields': (
+                'site',
+                'url',
+                'title',
+                'content',
+                'enable_comments',
+                'excerpt',
+                'template_name',
+                'custom_ad_unit',
+                'suppress_welcome_ad',
+            )
+        }),
     )
     ordering = ['site']
     list_display = ('__unicode__', 'url')

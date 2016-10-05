@@ -39,8 +39,8 @@ class FatPageAdmin(admin.ModelAdmin):
 
     class Media:
         js = (
-            '/static/js/jquery-1.8.1.min.js',
-            settings.NON_CDN_STATIC_URL + 'js/responsive_embed.js',
+            'js/jquery-1.8.1.min.js',
+            'js/responsive_embed.js',
         )
 
 admin.site.register(FatPage, FatPageAdmin)

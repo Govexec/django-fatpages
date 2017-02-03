@@ -25,6 +25,7 @@ class FatPage(models.Model, SailthruContentModelMixin):
         )
     )
 
+    suppress_title = models.BooleanField(default=False)
     suppress_welcome_ad = models.BooleanField(default=False)
 
     registration_required = models.BooleanField(

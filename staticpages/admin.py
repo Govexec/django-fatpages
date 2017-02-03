@@ -36,6 +36,7 @@ class FatPageAdmin(admin.ModelAdmin):
                 'excerpt',
                 'template_name',
                 'custom_ad_unit',
+                'suppress_title',
                 'suppress_welcome_ad',
             )
         }),

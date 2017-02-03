@@ -1,10 +1,10 @@
-from django.db import models
 from django.contrib.sites.models import Site
+from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from ckeditor.fields import RichTextField
-from django.conf import settings
 
+from ckeditor.fields import RichTextField
 from sailthru_wrapper.models.mixins import SailthruContentModelMixin
+
 
 class FatPage(models.Model, SailthruContentModelMixin):
     site = models.ForeignKey(Site, default=1)
@@ -15,14 +15,21 @@ class FatPage(models.Model, SailthruContentModelMixin):
     enable_comments = models.BooleanField(_('enable comments'), default=False)
 
     template_name = models.CharField(
-        _('template name'), default=False, max_length=70, blank=True,
-        help_text=_("Example: 'staticpages/contact_page.html'. If this isn't provided, the system will use 'the default.")
+        _('template name'),
+        default=False,
+        max_length=70,
+        blank=True,
+        help_text=_(
+            "Example: 'staticpages/contact_page.html'."
+            " If this isn't provided, the system will use 'the default."
+        )
     )
 
     suppress_welcome_ad = models.BooleanField(default=False)
 
     registration_required = models.BooleanField(
-        _('registration required'), default=False,
+        _('registration required'),
+        default=False,
         help_text=_("If this is checked, only logged-in users will be able to view the page.")
     )
 

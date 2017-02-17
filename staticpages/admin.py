@@ -1,16 +1,23 @@
 from django import forms
 from django.contrib import admin
-from staticpages.models import FatPage
 from django.utils.translation import ugettext_lazy as _
-from django.conf import settings
+from staticpages.models import FatPage
 
 
 class FatpageForm(forms.ModelForm):
-    url = forms.RegexField(label=_("URL"), max_length=100, regex=r'^[-\w/]+$',
-        help_text = _("Example: '/about/contact/'. Make sure to have leading"
-                      " and trailing slashes."),
-        error_message = _("This value must contain only letters, numbers,"
-                          " underscores, dashes or slashes."))
+    url = forms.RegexField(
+        label=_("URL"),
+        max_length=100,
+        regex=r'^[-\w/]+$',
+        help_text=_(
+            "Example: '/about/contact/'. Make sure to have leading"
+            " and trailing slashes."
+        ),
+        error_message=_(
+            "This value must contain only letters, numbers,"
+            " underscores, dashes or slashes."
+        )
+    )
 
     class Meta:
         model = FatPage
@@ -29,6 +36,7 @@ class FatPageAdmin(admin.ModelAdmin):
                 'excerpt',
                 'template_name',
                 'custom_ad_unit',
+                'suppress_title',
                 'suppress_welcome_ad',
             )
         }),
@@ -42,5 +50,6 @@ class FatPageAdmin(admin.ModelAdmin):
             'js/jquery-1.8.1.min.js',
             'js/responsive_embed.js',
         )
+
 
 admin.site.register(FatPage, FatPageAdmin)
